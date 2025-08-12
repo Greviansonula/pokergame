@@ -12,7 +12,8 @@ A full-stack Texas Hold'em poker game with real-time gameplay, hand history trac
 - 🔄 RESTful API backend
 
 ## Preview
-<img width="517" height="196" alt="Screenshot 2025-08-12 183223" src="https://github.com/user-attachments/assets/c6a05254-7441-4283-a975-b710f6e7a223" />
+<img width="959" height="514" alt="Screenshot 2025-08-12 224518" src="https://github.com/user-attachments/assets/09aa174e-d8af-4e20-9b57-3c58ec58202f" />
+
 
 
 
