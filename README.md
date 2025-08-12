@@ -11,9 +11,14 @@ A full-stack Texas Hold'em poker game with real-time gameplay, hand history trac
 - 🐳 Docker containerization
 - 🔄 RESTful API backend
 
+## Preview
+<img width="517" height="196" alt="Screenshot 2025-08-12 183223" src="https://github.com/user-attachments/assets/c6a05254-7441-4283-a975-b710f6e7a223" />
+
+
+
 ## Tech Stack
 
-- **Backend**: FastAPI, PostgreSQL, SQLAlchemy
+- **Backend**: FastAPI, PostgreSQL
 - **Frontend**: Next.js, TypeScript, Tailwind CSS
 - **State Management**: Zustand
 - **Database**: PostgreSQL with Alembic migrations
