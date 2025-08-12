@@ -1,0 +1,29 @@
+# docker-compose.yml  (place at project root)
+
+services:
+  backend:
+    build: ./backend
+    container_name: poker_backend
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    # Run via python -m app.main as defined in Dockerfile
+    # command: ["python","-m","app.main"]
+    # IMPORTANT: do NOT mount ./backend:/app — it would shadow installed deps in the image
+    # volumes:
+    #   - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    container_name: poker_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    # Avoid mounting ./frontend:/app in the container; it can shadow node_modules from the image
+    # volumes:
+    #   - ./frontend:/app
+    command: ["npm","run","dev"]

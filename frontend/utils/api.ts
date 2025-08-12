@@ -1,7 +1,7 @@
 // frontend/utils/api.ts
 import { HandHistory } from '../types/game';
 
-const API_BASE = '/api/v1';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export interface CreateHandRequest {
   stacks: number[];
@@ -14,7 +14,7 @@ export interface CreateHandRequest {
 }
 
 export async function saveHand(handData: CreateHandRequest): Promise<HandHistory> {
-  const response = await fetch(`${API_BASE}/hands/`, {
+  const response = await fetch(`${API_BASE}/api/v1/hands/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export async function saveHand(handData: CreateHandRequest): Promise<HandHistory
 }
 
 export async function getHands(): Promise<HandHistory[]> {
-  const response = await fetch(`${API_BASE}/hands/`);
+  const response = await fetch(`${API_BASE}/api/v1/hands/`);
   
   if (!response.ok) {
     throw new Error(`Failed to get hands: ${response.statusText}`);
@@ -40,7 +40,7 @@ export async function getHands(): Promise<HandHistory[]> {
 }
 
 export async function getHand(handId: string): Promise<HandHistory> {
-  const response = await fetch(`${API_BASE}/hands/${handId}`);
+  const response = await fetch(`${API_BASE}/api/v1/hands/${handId}`);
   
   if (!response.ok) {
     throw new Error(`Failed to get hand: ${response.statusText}`);
