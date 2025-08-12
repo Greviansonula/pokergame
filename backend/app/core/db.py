@@ -2,21 +2,32 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
 from typing import Generator
-from app.core.config import settings
-
 
 class DatabaseManager:
     def __init__(self):
         self._connection = None
+
+        # Hardcoded DB credentials
+        self.DB_HOST = "ls-6a894f612a8456af893817405d629367d4e9764a.cfgusgase70s.ap-south-1.rds.amazonaws.com"
+        self.DB_PORT = 5432
+        self.DB_USER = "dbmasteruser"
+        self.DB_PASSWORD = "4>pQxt6_,&HGGXQ(k9t.(A#hhK.fwSBS"
+        self.DB_NAME = "pokerdb"
+
+        print("Using DB connection:")
+        print(f"HOST: {self.DB_HOST}")
+        print(f"PORT: {self.DB_PORT}")
+        print(f"USER: {self.DB_USER}")
+        print(f"NAME: {self.DB_NAME}")
     
     def get_connection(self):
         if self._connection is None or self._connection.closed:
             self._connection = psycopg2.connect(
-                host=settings.DB_HOST,
-                port=settings.DB_PORT,
-                user=settings.DB_USER,
-                password=settings.DB_PASSWORD,
-                database=settings.DB_NAME,
+                host=self.DB_HOST,
+                port=self.DB_PORT,
+                user=self.DB_USER,
+                password=self.DB_PASSWORD,
+                database=self.DB_NAME,
                 cursor_factory=RealDictCursor
             )
         return self._connection
@@ -50,6 +61,5 @@ class DatabaseManager:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
-
 
 db_manager = DatabaseManager()

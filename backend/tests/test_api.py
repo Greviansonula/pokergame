@@ -19,8 +19,8 @@ def client():
         yield test_client
     
     # Cleanup test data
-    with db_manager.get_cursor() as cursor:
-        cursor.execute("DELETE FROM hands")
+    # with db_manager.get_cursor() as cursor:
+    #     cursor.execute("DELETE FROM hands")
 
 
 def test_health_check(client):
