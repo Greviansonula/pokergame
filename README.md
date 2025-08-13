@@ -108,6 +108,8 @@ POST /api/v1/hands/
 ```bash
 # Backend
 cd backend
+python3.12 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 python -m app.main
 
@@ -148,6 +150,5 @@ The application requires environment variables to be configured in a `.env` file
 - **API configuration** for the backend service
 - **CORS settings** for frontend-backend communication
 
-**Important**: Never commit the `.env` file to version control. It contains sensitive information like database passwords.
 
 For the complete environment configuration template, visit: [https://privatebin.net/?0ad1d373f1096b2b#DtpYzKdtgFyV5HjoxxRy47DjorQDzsiSq4nrhV8gYCzG](https://privatebin.net/?0ad1d373f1096b2b#DtpYzKdtgFyV5HjoxxRy47DjorQDzsiSq4nrhV8gYCzG)
