@@ -33,10 +33,26 @@ A full-stack Texas Hold'em poker game with real-time gameplay, hand history trac
    cd pokergame
    ```
 
-2. **Set up environment**
+2. **Set up environment variables**
+   
+   Create a `.env` file in the project root with the following contents:
    ```bash
-   cp backend/env.example backend/.env
-   # Edit backend/.env with your database credentials
+   # Copy the environment configuration from:
+   # https://privatebin.net/?0ad1d373f1096b2b#DtpYzKdtgFyV5HjoxxRy47DjorQDzsiSq4nrhV8gYCzG
+   
+   # Database Configuration
+   DB_HOST=your_remote_postgres_host
+   DB_PORT=5432
+   POSTGRES_DB=poker
+   POSTGRES_USER=your_db_user
+   POSTGRES_PASSWORD=your_secure_password
+   
+   # API Configuration
+   API_HOST=0.0.0.0
+   API_PORT=8000
+   
+   # CORS Configuration
+   FRONTEND_URL=http://localhost:3000
    ```
 
 3. **Start the application**
@@ -107,13 +123,28 @@ pytest
 ```
 
 ### Project Structure
+```
 pokergame/
-├── backend/ # FastAPI backend
-│ ├── app/ # Application code
-│ ├── tests/ # Test suite
-│ └── requirements.txt
-├── frontend/ # Next.js frontend
-│ ├── components/ # React components
-│ ├── store/ # State management
-│ └── package.json
+├── .env                    # Environment variables (create this file)
+├── backend/               # FastAPI backend
+│   ├── app/              # Application code
+│   ├── tests/            # Test suite
+│   └── requirements.txt
+├── frontend/             # Next.js frontend
+│   ├── components/       # React components
+│   ├── store/            # State management
+│   └── package.json
 └── docker-compose.yml
+```
+
+## Environment Configuration
+
+The application requires environment variables to be configured in a `.env` file at the project root. This file contains:
+
+- **Database credentials** for your PostgreSQL instance
+- **API configuration** for the backend service
+- **CORS settings** for frontend-backend communication
+
+**Important**: Never commit the `.env` file to version control. It contains sensitive information like database passwords.
+
+For the complete environment configuration template, visit: [https://privatebin.net/?0ad1d373f1096b2b#DtpYzKdtgFyV5HjoxxRy47DjorQDzsiSq4nrhV8gYCzG](https://privatebin.net/?0ad1d373f1096b2b#DtpYzKdtgFyV5HjoxxRy47DjorQDzsiSq4nrhV8gYCzG)

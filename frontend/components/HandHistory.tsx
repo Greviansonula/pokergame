@@ -15,12 +15,22 @@ export function HandHistory() {
   const [error, setError] = useState<string | null>(null);
 
   const loadHands = async () => {
+    console.log('HandHistory: loadHands called');
     setLoading(true);
     setError(null);
     try {
+      console.log('HandHistory: About to call getHands()');
       const fetchedHands = await getHands();
+      console.log('HandHistory: getHands() successful, hands count:', fetchedHands.length);
       setHands(fetchedHands);
     } catch (err) {
+      console.error('HandHistory: Error in loadHands:', err);
+      console.error('HandHistory: Error type:', typeof err);
+      console.error('HandHistory: Error constructor:', err?.constructor?.name);
+      if (err instanceof Error) {
+        console.error('HandHistory: Error message:', err.message);
+        console.error('HandHistory: Error stack:', err.stack);
+      }
       setError(err instanceof Error ? err.message : 'Failed to load hands');
     } finally {
       setLoading(false);

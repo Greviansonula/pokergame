@@ -22,7 +22,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_PUBLIC_API_URL: http://backend:8000
     # Avoid mounting ./frontend:/app in the container; it can shadow node_modules from the image
     # volumes:
     #   - ./frontend:/app

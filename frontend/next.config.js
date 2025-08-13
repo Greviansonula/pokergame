@@ -2,14 +2,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    async rewrites() {
-      return [
-        {
-          source: '/api/:path*',
-          destination: 'http://0.0.0.0:8000/api/:path*'
-        }
-      ]
-    }
+    // Removed rewrite rules - now using API routes for proxying to backend
+    // This provides better error handling and debugging capabilities
   }
   
   module.exports = nextConfig

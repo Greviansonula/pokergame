@@ -1,7 +1,11 @@
 // frontend/utils/api.ts
 import { HandHistory } from '../types/game';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Use local Next.js API routes that will proxy to the backend
+const API_BASE = '/api';
+
+console.log('API_BASE configured as:', API_BASE);
+console.log('Using local Next.js API routes for proxying to backend');
 
 export interface CreateHandRequest {
   stacks: number[];
@@ -14,37 +18,98 @@ export interface CreateHandRequest {
 }
 
 export async function saveHand(handData: CreateHandRequest): Promise<HandHistory> {
-  const response = await fetch(`${API_BASE}/api/v1/hands/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(handData),
-  });
+  const url = `${API_BASE}/hands/`;
+  console.log('Making API call to local route:', url);
+  console.log('Request data:', handData);
+  
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(handData),
+    });
 
-  if (!response.ok) {
-    throw new Error(`Failed to save hand: ${response.statusText}`);
+    console.log('Response status:', response.status);
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`Failed to save hand: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('API call successful:', result);
+    return result;
+  } catch (error) {
+    console.error('Fetch error details:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error constructor:', error?.constructor?.name);
+    if (error instanceof TypeError) {
+      console.error('This is a network/fetch error');
+    }
+    throw error;
   }
-
-  return response.json();
 }
 
 export async function getHands(): Promise<HandHistory[]> {
-  const response = await fetch(`${API_BASE}/api/v1/hands/`);
+  const url = `${API_BASE}/hands/`;
+  console.log('Making API call to local route:', url);
+  console.log('Current API_BASE:', API_BASE);
   
-  if (!response.ok) {
-    throw new Error(`Failed to get hands: ${response.statusText}`);
-  }
+  try {
+    console.log('Starting fetch request...');
+    const response = await fetch(url);
+    
+    console.log('Response received:', response);
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`Failed to get hands: ${response.statusText}`);
+    }
 
-  return response.json();
+    const result = await response.json();
+    console.log('API call successful, hands count:', result.length);
+    return result;
+  } catch (error) {
+    console.error('Fetch error in getHands:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error constructor:', error?.constructor?.name);
+    console.error('Error message:', (error as Error)?.message);
+    console.error('Error stack:', (error as Error)?.stack);
+    
+    if (error instanceof TypeError) {
+      console.error('This is a network/fetch error - likely CORS or connection issue');
+    }
+    
+    throw error;
+  }
 }
 
 export async function getHand(handId: string): Promise<HandHistory> {
-  const response = await fetch(`${API_BASE}/api/v1/hands/${handId}`);
+  const url = `${API_BASE}/hands/${handId}`;
+  console.log('Making API call to local route:', url);
   
-  if (!response.ok) {
-    throw new Error(`Failed to get hand: ${response.statusText}`);
-  }
+  try {
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API Error Response:', errorText);
+      throw new Error(`Failed to get hand: ${response.statusText}`);
+    }
 
-  return response.json();
+    const result = await response.json();
+    console.log('API call successful:', result);
+    return result;
+  } catch (error) {
+    console.error('Fetch error in getHand:', error);
+    throw error;
+  }
 }
